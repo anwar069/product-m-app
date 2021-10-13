@@ -6,10 +6,14 @@ import ProductComponent from "../component/ProductComponent";
 
 
 export default function HomeScreen(props) {
-    const { products } = props;
+    const { prods, onAddCart } = props;
     const [search, setSearch] = useState('');
+    const [products, setProducts] = useState(prods);
     const handleText = (val) => {
         setSearch(val);
+
+        let filterProducts = prods.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
+        setProducts(filterProducts);
     }
     return (
         <View style={styles.container}>
@@ -20,11 +24,9 @@ export default function HomeScreen(props) {
             />
             <FlatList
                 data={products}
-                renderItem={data => <ProductComponent key={data.item.id} product={data.item} />}
+                renderItem={data => <ProductComponent key={data.item.id} onAddCart={onAddCart} product={data.item} />}
                 keyExtractor={item => item.id}
             />
-
-
 
         </View>
     );
