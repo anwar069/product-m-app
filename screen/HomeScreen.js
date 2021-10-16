@@ -6,7 +6,7 @@ import ProductComponent from "../component/ProductComponent";
 
 
 export default function HomeScreen(props) {
-    const { prods, onAddCart } = props;
+    const { prods, onAddCart, cart, onRemoveCart } = props;
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState(prods);
     const handleText = (val) => {
@@ -15,6 +15,14 @@ export default function HomeScreen(props) {
         let filterProducts = prods.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
         setProducts(filterProducts);
     }
+
+    const checkInCart = (pro) => {
+        let ind = cart.findIndex(
+            (e) => { return pro.id == e.id }
+        )
+        return ind > -1;
+    }
+
     return (
         <View style={styles.container}>
             <SearchBar
@@ -24,10 +32,14 @@ export default function HomeScreen(props) {
             />
             <FlatList
                 data={products}
-                renderItem={data => <ProductComponent key={data.item.id} onAddCart={onAddCart} product={data.item} />}
+                renderItem={data => <ProductComponent
+                    onRemoveCart={onRemoveCart}
+                    inCart={checkInCart(data.item)}
+                    key={data.item.id}
+                    onAddCart={onAddCart}
+                    product={data.item} />}
                 keyExtractor={item => item.id}
             />
-
         </View>
     );
 }
@@ -36,19 +48,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
-    },
-    priceContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    rupeeContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    textPrice: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#21610B',
-        margin: 10
     }
 });
+

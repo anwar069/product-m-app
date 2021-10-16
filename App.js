@@ -15,20 +15,34 @@ export default function App() {
     setCart(arr);
   }
 
+  const onRemoveCart = (item) => {
+    let ind = cart.findIndex(
+      (e) => { return item.id == e.id }
+    )
+    if (ind != -1) {
+      let newArr = [...cart];
+      newArr.splice(ind, 1);
+      setCart(newArr);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Header
-        leftComponent={{ icon: 'menu', color: '#fff' }}
+        leftComponent={<Icon iconStyle={styles.cartIcon} name='menu' color='#ffffff' />}
         centerComponent={<Text style={styles.headerText}> Taj Textiles Stores</Text>}
         rightComponent={<View>
-          <Badge value={cart.length} status="success" />
-          <Icon type='font-awesome' name='cart-plus' color='#ffffff' />
+          <Badge containerStyle={styles.headerBadge} value={cart.length} status="success" />
+          <Icon iconStyle={styles.cartIcon} type='font-awesome' name='cart-plus' color='#ffffff' />
         </View>}
       />
 
       <StatusBar style="auto" />
-      <HomeScreen onAddCart={onAddCart} prods={products} />
-
+      <HomeScreen
+        cart={cart}
+        onAddCart={onAddCart}
+        onRemoveCart={onRemoveCart}
+        prods={products} />
     </View>
   );
 }
@@ -41,6 +55,14 @@ const styles = StyleSheet.create({
   headerText: {
     color: 'white',
     paddingTop: 5,
-    fontSize: 25
+    fontSize: 25,
+  },
+  headerBadge: {
+    marginBottom: -10,
+    marginLeft: 20,
+    zIndex: 1
+  },
+  cartIcon: {
+    fontSize: 30
   }
 });

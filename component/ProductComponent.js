@@ -4,7 +4,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function ProductComponent(props) {
-    const { product, onAddCart } = props;
+    const { product, onAddCart, inCart, onRemoveCart } = props;
     return (
         <View style={styles.container}>
             <Card>
@@ -25,11 +25,17 @@ export default function ProductComponent(props) {
                     </View>
 
                 </View>
-                <Button
+
+                {inCart ? <Button
+                    icon={<Icon type='font-awesome' name='trash' color='#ffffff' />}
+                    onPress={() => onRemoveCart(product)}
+                    buttonStyle={{ backgroundColor: 'red', borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
+                    title=' Remove from cart' /> : <Button
                     icon={<Icon type='font-awesome' name='cart-plus' color='#ffffff' />}
                     buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
                     onPress={() => onAddCart(product)}
-                    title='  Add to cart' />
+                    title='  Add to cart' />}
+
             </Card>
 
         </View>
