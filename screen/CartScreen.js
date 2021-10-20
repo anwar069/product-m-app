@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import ProductComponent from "../component/ProductComponent";
 
 
-export default function HomeScreen(props) {
+export default function CartScreen(props) {
     const { prods, onAddCart, cart, onRemoveCart } = props;
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState(prods);
@@ -30,7 +30,7 @@ export default function HomeScreen(props) {
                 value={search}
             />
             <FlatList
-                data={products}
+                data={cart}
                 renderItem={data => <ProductComponent
                     onRemoveCart={onRemoveCart}
                     inCart={checkInCart(data.item)}
