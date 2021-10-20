@@ -7,13 +7,6 @@ import ProductComponent from "../component/ProductComponent";
 
 export default function CartScreen(props) {
     const { prods, onAddCart, cart, onRemoveCart } = props;
-    const [search, setSearch] = useState('');
-    const [products, setProducts] = useState(prods);
-    const handleText = (val) => {
-        setSearch(val);
-        let filterProducts = prods.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
-        setProducts(filterProducts);
-    }
 
     const checkInCart = (pro) => {
         let ind = cart.findIndex(
@@ -24,12 +17,8 @@ export default function CartScreen(props) {
 
     return (
         <View style={styles.container}>
-            <SearchBar
-                placeholder="Type Here..."
-                onChangeText={handleText}
-                value={search}
-            />
-            <FlatList
+
+            {cart.length > 0 ? <FlatList
                 data={cart}
                 renderItem={data => <ProductComponent
                     onRemoveCart={onRemoveCart}
@@ -38,7 +27,9 @@ export default function CartScreen(props) {
                     onAddCart={onAddCart}
                     product={data.item} />}
                 keyExtractor={item => item.id}
-            />
+            /> : <Text style={styles.emptyText}>Your cart is empty</Text>}
+
+            {cart.length > 0 && <Button containerStyle={styles.btnCheckout} title="Checkout" />}
         </View>
     );
 }
@@ -46,7 +37,13 @@ export default function CartScreen(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        justifyContent: "center"
+    },
+    emptyText: {
+        fontSize: 26,
+        color: 'grey',
+        textAlign: "center"
     }
 });
 

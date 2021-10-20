@@ -11,7 +11,7 @@ export default function HomeScreen(props) {
     const [products, setProducts] = useState(prods);
     const handleText = (val) => {
         setSearch(val);
-        let filterProducts = prods.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
+        let filterProducts = prods.filter(e => e.name.toLowerCase().includes(val.trim().toLowerCase()));
         setProducts(filterProducts);
     }
 

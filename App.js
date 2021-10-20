@@ -39,8 +39,9 @@ export default function App() {
         screenOptions={{
           header: ({ navigation, scene }) => (
             <Header
-              leftComponent={navigation.canGoBack() ? <Icon onPress={() => navigation.goBack()} iconStyle={styles.cartIcon} type="ionicons" name='arrow-back' color='#ffffff' /> : <Icon iconStyle={styles.cartIcon} name='menu' color='#ffffff' />}
-              centerComponent={<Text onPress={() => navigation.navigate('Home')} style={styles.headerText}> {route.name}</Text>}
+              leftComponent={navigation.canGoBack() ?
+                <Icon onPress={() => navigation.goBack()} iconStyle={styles.cartIcon} type="ionicons" name='arrow-back' color='#ffffff' /> : <Icon iconStyle={styles.cartIcon} name='menu' color='#ffffff' />}
+              centerComponent={<Text onPress={() => navigation.navigate('Home')} style={styles.headerText}> Taj Textiles Stores</Text>}
               rightComponent={
                 <TouchableOpacity
                   onPress={() => navigation.push('Cart')}
